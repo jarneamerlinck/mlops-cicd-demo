@@ -15,3 +15,8 @@ def test_process_data(data):
     X_train, y_train, encoder, lb = process_data(
         data, categorical_features=cat_features, label="salary", training=True
     )
+
+    assert data.shape == (10, 15)
+    assert X_train.shape == (10, 33)
+    assert len(encoder.categories_) == len(cat_features)
+    assert lb.classes_.shape == (2,)
