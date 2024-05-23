@@ -83,10 +83,22 @@ def inference(model, X):
 
 
 def save_model(model, pth="model/model.pickle"):
+    """Save model to pickle.
+
+
+    Args:
+        model (): Model to save.
+        pth (str): Path of resulting pickle.
+    """
     with open(pth, "wb") as file:
         pickle.dump(model, file)
 
 
 def load_model(pth="model/model.pickle"):
+    """Load model from pickle.
+
+    Args:
+        pth (str): Path of the pickle file.
+    """
     with open(pth, "rb") as file:
         return pickle.load(file)
