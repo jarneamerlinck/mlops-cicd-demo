@@ -34,6 +34,7 @@ def train():
         "sex",
         "native-country",
     ]
+    slice_feature = cat_features[2]
 
     X_train, y_train, encoder, lb = process_data(
         train, categorical_features=cat_features, label="salary", training=True
@@ -57,6 +58,7 @@ def train():
 
     print(X_test.shape)
     model_pth = f"{parent_dir}/model/model.pickle"
+    model_card_pth = f"{parent_dir}/model/model_card.md"
 
     if os.path.isfile(model_pth):
         print("Prev model available")
@@ -88,7 +90,50 @@ def train():
         encoder=encoder,
         lb=lb,
     )
-    print(slice_results)
+    metric_types = ["precision", "recall", "fbeta"]
+
+    original_metrics = pd.DataFrame(
+        data=[[precision, recall, fbeta]], columns=metric_types
+    )
+
+    model_details = "This mo"
+    model_use = "This model was created to predict the income of a person."
+    eval_data = (
+        "The data was taken from the same sources as the trainings data"
+        + " but split off from the trainigsdata before use."
+    )
+    train_data = (
+        "The trainings data was taken from the census page"
+        + " (see [Ethical Considerations](#Ethical-Considerations))."
+        + f" Below you can find a sample of the data\n\n {data[:10]}"
+    )
+    metrics_desc = (
+        "The metrics over all the slices is listed in the table below\n\n"
+        + f"{original_metrics}\n\nThe slices war made on the column"
+        + f" '{slice_feature}'\n\n{slice_results}\n\n"
+    )
+    ethical_desc = (
+        "This data can be found on"
+        + " [sources](https://archive.ics.uci.edu/ml/datasets/census+income)"
+        + " and the only bias should be the bias in the data"
+    )
+    recommendations = "There are not recommendations at this moment"
+
+    model_lib.save_model_card(
+        model,
+        data,
+        slice_feature=slice_feature,
+        encoder=encoder,
+        lb=lb,
+        pth=model_card_pth,
+        model_details=model_details,
+        model_use=model_use,
+        eval_data=eval_data,
+        train_data=train_data,
+        metrics_desc=metrics_desc,
+        ethical_desc=ethical_desc,
+        recommendations=recommendations,
+    )
 
 
 if __name__ == "__main__":

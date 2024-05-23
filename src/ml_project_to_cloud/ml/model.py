@@ -89,6 +89,64 @@ def inference(model, X):
     return model.predict(X)
 
 
+def save_model_card(
+    model,
+    data,
+    slice_feature: str,
+    encoder,
+    lb,
+    pth: str,
+    model_details: str,
+    model_use: str,
+    eval_data: str,
+    train_data: str,
+    metrics_desc: str,
+    ethical_desc: str,
+    recommendations: str,
+):
+    file_content = """
+
+
+# Model Card
+
+For additional information see the Model Card paper:"""
+    +"""
+https://arxiv.org/pdf/1810.03993.pdf
+
+## Model Details
+
+{model_details}
+
+## Intended Use
+
+{model_use}
+
+## Training Data
+
+{train_data}
+
+## Evaluation Data
+
+{eval_data}
+
+## Metrics
+
+{metrics_desc}
+
+## Ethical Considerations
+
+{ethical_desc}
+
+## Caveats and Recommendations
+
+{recommendations}
+
+"""
+
+    with open(pth, "w") as file:
+        file.write(file_content)
+
+
 def save_model(model, pth="model/model.pickle"):
     """Save model to pickle.
 
