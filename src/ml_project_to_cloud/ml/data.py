@@ -2,6 +2,18 @@ import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 
+def remove_first_space(s):
+    if isinstance(s, str) and s.startswith(" "):
+        return s[1:]
+    return s
+
+
+def clean_data(df):
+    df = df.applymap(remove_first_space)
+    df.columns = [col.replace(" ", "") for col in df.columns]
+    return df
+
+
 def process_data(
     X,
     categorical_features=[],

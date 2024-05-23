@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 import ml_project_to_cloud.ml.model as model_lib
-from ml_project_to_cloud.ml.data import process_data
+from ml_project_to_cloud.ml.data import clean_data, process_data
 
 
 def train():
@@ -18,6 +18,7 @@ def train():
     # Add code to load in the data.
     parent_dir = f"{current_dir}/../.."
     data = pd.read_csv(f"{parent_dir}/data/census.csv")
+    data = clean_data(data)
 
     # Optional enhancement, use K-fold cross validation
     # instead of a train-test split.
@@ -78,3 +79,17 @@ def train():
         print(precision, recall, fbeta)
     else:
         print("prev model was better, so no saving current model")
+
+    print("Test preformance on slice")
+    slice_results = model_lib.preformance_over_slice(
+        model,
+        data,
+        slice_feature=cat_features[2],
+        encoder=encoder,
+        lb=lb,
+    )
+    print(slice_results)
+
+
+if __name__ == "__main__":
+    train()

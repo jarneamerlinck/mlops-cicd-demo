@@ -2,9 +2,12 @@ import multiprocessing
 import pickle
 
 import numpy as np
+import pandas as pd
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, train_test_split
+
+from ml_project_to_cloud.ml.data import process_data
 
 NUMBER_OF_CORES_TO_KEEP_FREE = 4
 
@@ -26,9 +29,12 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
     params = {
-        "n_estimators": range(5, 30, 5),
-        "max_depth": range(5, 30, 5),
-        "learning_rate": np.linspace(0, 1, 11),
+        # "n_estimators": range(5, 30, 5),
+        # "max_depth": range(5, 30, 5),
+        # "learning_rate": np.linspace(0, 1, 11),
+        "n_estimators": range(5, 10, 5),
+        "max_depth": range(5, 10, 5),
+        "learning_rate": np.linspace(0, 1, 3),
     }
 
     n_cores = multiprocessing.cpu_count() - NUMBER_OF_CORES_TO_KEEP_FREE
@@ -103,3 +109,45 @@ def load_model(pth="model/model.pickle"):
     """
     with open(pth, "rb") as file:
         return pickle.load(file)
+
+
+def preformance_over_slice(model, data, slice_feature: str, encoder, lb):
+
+    metric_types = ["slice_name", "precision", "recall", "fbeta"]
+    results = pd.DataFrame(columns=metric_types)
+    slices = data[slice_feature].unique()
+    # print(slices)
+    print(f"Performance over slices on {slice_feature}")
+    for slice in slices:
+        slice_data = data[data[slice_feature] == slice]
+
+        train, test = train_test_split(slice_data, test_size=0.20)
+
+        cat_features = [
+            "workclass",
+            "education",
+            "marital-status",
+            "occupation",
+            "relationship",
+            "race",
+            "sex",
+            "native-country",
+        ]
+
+        X_train, y_train, encoder, lb = process_data(
+            train,
+            categorical_features=cat_features,
+            label="salary",
+            training=False,
+            encoder=encoder,
+            lb=lb,
+        )
+        slice_pred = inference(model, X_train)
+        tuple_values = compute_model_metrics(y_train, slice_pred)
+        # print(tuple_values)
+        new_row = pd.Series(
+            [slice] + list(tuple_values),
+            index=metric_types,
+        )
+        results = pd.concat([results, new_row.to_frame().T], ignore_index=True)
+    return results
