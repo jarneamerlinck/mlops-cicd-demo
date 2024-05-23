@@ -1,9 +1,10 @@
-from sklearn.metrics import fbeta_score, precision_score, recall_score
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import GridSearchCV
-import numpy as np
 import multiprocessing
 import pickle
+
+import numpy as np
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.model_selection import GridSearchCV
 
 NUMBER_OF_CORES_TO_KEEP_FREE = 4
 

@@ -7,8 +7,8 @@
     - https://docs.pytest.org/en/stable/writing_plugins.html
 """
 
-import pytest
 import pandas as pd
+import pytest
 
 
 @pytest.fixture

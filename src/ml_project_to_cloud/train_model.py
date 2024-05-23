@@ -1,9 +1,10 @@
 # Script to train machine learning model.
 import os
-from sklearn.model_selection import train_test_split
-from ml.data import process_data
-import pandas as pd
+
 import ml.model as model_lib
+import pandas as pd
+from ml.data import process_data
+from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 current_dir = os.path.dirname(os.path.abspath(__file__))
