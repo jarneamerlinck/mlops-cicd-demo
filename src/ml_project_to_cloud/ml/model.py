@@ -9,7 +9,7 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 
 from ml_project_to_cloud.ml.data import process_data
 
-NUMBER_OF_CORES_TO_KEEP_FREE = 4
+NUMBER_OF_CORES_TO_KEEP_FREE = 2
 
 
 # Optional: implement hyperparameter tuning.
@@ -38,12 +38,13 @@ def train_model(X_train, y_train):
     }
 
     n_cores = multiprocessing.cpu_count() - NUMBER_OF_CORES_TO_KEEP_FREE
+
     modelGrid = GridSearchCV(
         GradientBoostingClassifier(random_state=0),
         param_grid=params,
         cv=2,
         verbose=2,
-        n_jobs=n_cores,
+        n_jobs=n_cores if n_cores != 0 else 1,
     )
     modelGrid.fit(X_train, y_train)
     return modelGrid
