@@ -1,6 +1,12 @@
 import numpy
 
-from ml_project_to_cloud.ml.model import compute_model_metrics, inference, train_model
+from ml_project_to_cloud.ml.model import (
+    compute_model_metrics,
+    inference,
+    load_model,
+    save_model,
+    train_model,
+)
 
 
 def test_train_model(processed_data):
@@ -24,3 +30,16 @@ def test_compute_model_metrics(processed_data):
     assert type(precision) is numpy.float64
     assert type(recall) is numpy.float64
     assert type(fbeta) is numpy.float64
+
+
+def test_save_model(processed_data, tmp_path):
+    X_train, y_train, encoder, lb = processed_data
+    model = train_model(X_train, y_train)
+    tmp_file = tmp_path / "model.pickle"
+    save_model(model, tmp_file)
+
+    assert tmp_file.exists()
+
+    loaded_model = load_model(tmp_file)
+
+    assert type(model) is type(loaded_model)
