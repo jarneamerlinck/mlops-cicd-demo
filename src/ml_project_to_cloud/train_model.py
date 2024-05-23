@@ -8,7 +8,8 @@ import ml.model as model_lib
 # Add the necessary imports for the starter code.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # Add code to load in the data.
-data = pd.read_csv(f"{current_dir}/../data/census.csv")
+parent_dir = f"{current_dir}/../.."
+data = pd.read_csv(f"{parent_dir}/data/census.csv")
 
 # Optional enhancement, use K-fold cross validation
 # instead of a train-test split.
@@ -47,17 +48,18 @@ X_test, y_test, _, _ = process_data(
 )
 
 print(X_test.shape)
+model_pth = f"{parent_dir}/model/model.pickle"
 
-if os.path.isfile(f"{current_dir}/../model/model.pickle"):
+if os.path.isfile(model_pth):
     print("Prev model available")
-    prev_model = model_lib.load_model(f"{current_dir}/../model/model.pickle")
+    prev_model = model_lib.load_model(model_pth)
     pred_prev_model = model_lib.inference(prev_model, X_test)
     precision_prev_model, _, _ = model_lib.compute_model_metrics(
         y_test, pred_prev_model
     )
 else:
     print("No prev model")
-    pred_prev_model = -1
+    precision_prev_model = -1
 
 pred = model_lib.inference(model, X_test)
 precision, recall, fbeta = model_lib.compute_model_metrics(y_test, pred)
@@ -65,7 +67,7 @@ precision, recall, fbeta = model_lib.compute_model_metrics(y_test, pred)
 if precision > precision_prev_model:
     print("Current model is better")
     print("Saving model")
-    model_lib.save_model(model, f"{current_dir}/../model/model.pickle")
+    model_lib.save_model(model, model_pth)
     print(precision, recall, fbeta)
 else:
     print("prev model was better, so no saving current model")
