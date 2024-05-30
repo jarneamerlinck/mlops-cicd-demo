@@ -7,6 +7,8 @@
     - https://docs.pytest.org/en/stable/writing_plugins.html
 """
 
+import os
+
 import pandas as pd
 import pytest
 
@@ -15,7 +17,7 @@ from ml_project_to_cloud.ml.data import process_data
 
 @pytest.fixture
 def data():
-    data = pd.read_parquet("tests/sample.parquet")
+    data = pd.read_parquet(os.path.join(os.path.dirname(__file__), "sample.parquet"))
     return data
 
 

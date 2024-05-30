@@ -17,8 +17,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = f"{current_dir}/../../"
 model_pth = f"{parent_dir}/model/model.pickle"
 
-model = load_model(model_pth)
-
 
 class InputArray(BaseModel):
     age: int
@@ -54,6 +52,8 @@ async def predict(df: List[dict]):
 
 
 def main():
+    model = load_model(model_pth)
+    print(model)
 
     uvicorn.run(app, host="0.0.0.0", port=8080, reload=False)
     # Declare the data object with its components and their type.
