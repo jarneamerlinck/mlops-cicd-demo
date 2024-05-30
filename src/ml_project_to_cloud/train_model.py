@@ -27,12 +27,12 @@ def train():
     cat_features = [
         "workclass",
         "education",
-        "marital-status",
+        "marital_status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native_country",
     ]
     slice_feature = cat_features[2]
 

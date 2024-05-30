@@ -102,13 +102,14 @@ def save_model_card(
     ethical_desc: str,
     recommendations: str,
 ):
-    file_content = """
+    file_content = (
+        """
 
 
 # Model Card
 
 For additional information see the Model Card paper:"""
-    +"""
+        + f"""
 https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
@@ -140,6 +141,7 @@ https://arxiv.org/pdf/1810.03993.pdf
 {recommendations}
 
 """
+    )
 
     with open(pth, "w") as file:
         file.write(file_content)
@@ -182,12 +184,12 @@ def preformance_over_slice(model, data, slice_feature: str, encoder, lb):
         cat_features = [
             "workclass",
             "education",
-            "marital-status",
+            "marital_status",
             "occupation",
             "relationship",
             "race",
             "sex",
-            "native-country",
+            "native_country",
         ]
 
         X_train, y_train, encoder, lb = process_data(

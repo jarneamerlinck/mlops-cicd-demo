@@ -3,7 +3,8 @@
 
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
+For additional information see the Model Card paper:
+https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
 
@@ -17,7 +18,7 @@ This model was created to predict the income of a person.
 
 The trainings data was taken from the census page (see [Ethical Considerations](#Ethical-Considerations)). Below you can find a sample of the data
 
-    age         workclass   fnlgt  education  education-num         marital-status         occupation  ...   race     sex capital-gain  capital-loss  hours-per-week  native-country salary
+    age         workclass   fnlgt  education  education_num         marital_status         occupation  ...   race     sex capital_gain  capital_loss  hours_per_week  native_country salary
 0   39         State-gov   77516  Bachelors             13          Never-married       Adm-clerical  ...  White    Male         2174             0              40   United-States  <=50K
 1   50  Self-emp-not-inc   83311  Bachelors             13     Married-civ-spouse    Exec-managerial  ...  White    Male            0             0              13   United-States  <=50K
 2   38           Private  215646    HS-grad              9               Divorced  Handlers-cleaners  ...  White    Male            0             0              40   United-States  <=50K
@@ -40,18 +41,18 @@ The data was taken from the same sources as the trainings data but split off fro
 The metrics over all the slices is listed in the table below
 
    precision    recall     fbeta
-0   0.804004  0.583214  0.676038
+0   0.780454  0.625744  0.694588
 
-The slices war made on the column 'marital-status'
+The slices war made on the column 'marital_status'
 
               slice_name precision    recall     fbeta
-0          Never-married  0.928571  0.382353  0.541667
-1     Married-civ-spouse  0.789563  0.610663  0.688684
-2               Divorced   0.94964  0.354839  0.516634
-3  Married-spouse-absent       0.9  0.346154       0.5
-4              Separated       1.0   0.40678  0.578313
-5      Married-AF-spouse       1.0  0.111111       0.2
-6                Widowed       1.0  0.308824   0.47191
+0          Never-married      0.65  0.492424  0.560345
+1     Married-civ-spouse  0.783838  0.650885  0.711202
+2               Divorced  0.811881  0.423773  0.556876
+3  Married-spouse-absent  0.714286       0.4  0.512821
+4              Separated  0.911765  0.553571  0.688889
+5      Married-AF-spouse  0.777778  0.777778  0.777778
+6                Widowed  0.793103  0.359375  0.494624
 
 
 

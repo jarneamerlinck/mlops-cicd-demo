@@ -10,7 +10,10 @@ def remove_first_space(s):
 
 def clean_data(df):
     df = df.applymap(remove_first_space)
-    df.columns = [col.replace(" ", "") for col in df.columns]
+    df.columns = df.columns.str.replace("-", "_")
+    df.columns = df.columns.str.replace(" ", "")
+
+    # df.columns = [col.replace(" ", "") for col in df.columns]
     return df
 
 
