@@ -161,13 +161,13 @@ def save_model(model, lb, encoder, cat_features, pth="model/"):
         cat_features (list): List of Categorical features to save.
         pth (str): Path of resulting pickle.
     """
-    with open(pth + "model.pickle", "wb") as file:
+    with open(f"{pth}/model.pickle", "wb") as file:
         pickle.dump(model, file)
-    with open(pth + "lb.pickle", "wb") as file:
+    with open(f"{pth}/lb.pickle", "wb") as file:
         pickle.dump(lb, file)
-    with open(pth + "encoder.pickle", "wb") as file:
+    with open(f"{pth}/encoder.pickle", "wb") as file:
         pickle.dump(encoder, file)
-    with open(pth + "cat_features.pickle", "wb") as file:
+    with open(f"{pth}/cat_features.pickle", "wb") as file:
         pickle.dump(cat_features, file)
 
 
@@ -177,13 +177,13 @@ def load_model(pth="model/"):
     Args:
         pth (str): Path of the pickle file.
     """
-    with open(pth + "model.pickle", "rb") as file:
+    with open(f"{pth}/model.pickle", "rb") as file:
         model = pickle.load(file)
-    with open(pth + "lb.pickle", "rb") as file:
+    with open(f"{pth}/lb.pickle", "rb") as file:
         lb = pickle.load(file)
-    with open(pth + "encoder.pickle", "rb") as file:
+    with open(f"{pth}/encoder.pickle", "rb") as file:
         encoder = pickle.load(file)
-    with open(pth + "cat_features.pickle", "rb") as file:
+    with open(f"{pth}/cat_features.pickle", "rb") as file:
         cat_features = pickle.load(file)
     return model, lb, encoder, cat_features
 
