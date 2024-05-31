@@ -22,8 +22,9 @@ def test_predict_single(data):
         json=data_json,
     )
     assert r.status_code == 200
-    assert type(r.json()) == list
-    assert len(r.json()) == parsed_data.shape[0]
+    result = r.json()["data"]
+    assert type(result) is list
+    assert len(result) == parsed_data.shape[0]
 
 
 def test_predict_multiple(data):
@@ -34,6 +35,7 @@ def test_predict_multiple(data):
         "/",
         json=data_json,
     )
+    result = r.json()["data"]
+    assert type(result) is list
+    assert len(result) == parsed_data.shape[0]
     assert r.status_code == 200
-    assert type(r.json()) == list
-    assert len(r.json()) == parsed_data.shape[0]
