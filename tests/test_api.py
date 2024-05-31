@@ -13,12 +13,27 @@ def test_get_root():
     assert r.json() == {"greeting": "Welcome to the ml api!"}
 
 
-def test_post_root(data):
-    parsed_data = parse_data_for_predict(data)
-    data_json = parsed_data[1:2].to_dict(orient="records")
+def test_predict_single(data):
+    parsed_data = parse_data_for_predict(data).iloc[[0]]
+    data_json = parsed_data.to_dict(orient="records")
 
     r = client.post(
         "/",
         json=data_json,
     )
     assert r.status_code == 200
+    assert type(r.json()) == list
+    assert len(r.json()) == parsed_data.shape[0]
+
+
+def test_predict_multiple(data):
+    parsed_data = parse_data_for_predict(data)[4:8]
+    data_json = parsed_data.to_dict(orient="records")
+
+    r = client.post(
+        "/",
+        json=data_json,
+    )
+    assert r.status_code == 200
+    assert type(r.json()) == list
+    assert len(r.json()) == parsed_data.shape[0]
