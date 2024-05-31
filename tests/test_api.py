@@ -10,17 +10,15 @@ client = TestClient(app)
 def test_get_root():
     r = client.get("/")
     assert r.status_code == 200
-    assert r.json() == {"greeting": "Hello World!"}
+    assert r.json() == {"greeting": "Welcome to the ml api!"}
 
 
 def test_post_root(data):
-    parced_data = parse_data_for_predict(data)
-    payload = parced_data.iloc[4].to_dict()
+    parsed_data = parse_data_for_predict(data)
+    data_json = parsed_data[1:2].to_dict(orient="records")
 
     r = client.post(
-        "/predict",
-        # headers={"X-Token": "coneofsilence"},
-        json=payload,
+        "/",
+        json=data_json,
     )
-    print(r)
     assert r.status_code == 200

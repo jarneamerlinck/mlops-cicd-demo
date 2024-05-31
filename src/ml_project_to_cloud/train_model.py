@@ -16,8 +16,8 @@ def train():
     # Add the necessary imports for the starter code.
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Add code to load in the data.
-    parent_dir = f"{current_dir}/../.."
-    data = pd.read_csv(f"{parent_dir}/data/census.csv")
+    parent_dir = f"{current_dir}/../"
+    data = pd.read_csv(f"{parent_dir}../data/census.csv")
     data = clean_data(data)
 
     # Optional enhancement, use K-fold cross validation
@@ -57,8 +57,8 @@ def train():
     )
 
     print(X_test.shape)
-    model_pth = f"{parent_dir}/model/"
-    model_card_pth = f"{parent_dir}/model/model_card.md"
+    model_pth = f"{current_dir}/model/"
+    model_card_pth = f"{current_dir}/model/model_card.md"
 
     if os.path.isfile(model_pth + "model.pickle"):
         print("Prev model available")

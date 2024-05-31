@@ -34,12 +34,19 @@ def test_compute_model_metrics(processed_data):
 
 def test_save_model(processed_data, tmp_path):
     X_train, y_train, encoder, lb = processed_data
+    cat_features = ["list", "of", "features"]
     model = train_model(X_train, y_train)
-    tmp_file = tmp_path / "model.pickle"
-    save_model(model, tmp_file)
+    save_model(model, lb, encoder, cat_features, tmp_path)
 
+    tmp_file = tmp_path / "model.pickle"
+    assert tmp_file.exists()
+    tmp_file = tmp_path / "lb.pickle"
+    assert tmp_file.exists()
+    tmp_file = tmp_path / "encoder.pickle"
+    assert tmp_file.exists()
+    tmp_file = tmp_path / "cat_features.pickle"
     assert tmp_file.exists()
 
-    loaded_model = load_model(tmp_file)
+    loaded_model, lb, encoder, cat_features = load_model(tmp_path)
 
     assert type(model) is type(loaded_model)

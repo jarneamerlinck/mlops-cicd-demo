@@ -1,0 +1,2 @@
+include src/ml_project_to_cloud/*.md
+include src/ml_project_to_cloud/*.pickle

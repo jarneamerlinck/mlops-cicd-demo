@@ -13,8 +13,8 @@ from ml_project_to_cloud.ml.model import inference, load_model
 
 # from sklearn.model_selection import train_test_split
 
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(__file__)
+# current_dir = os.path.dirname(os.path.abspath(__file__))
 # Add code to load in the data.
 parent_dir = f"{current_dir}/../.."
 model_pth = f"{parent_dir}/model/"
