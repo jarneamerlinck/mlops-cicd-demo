@@ -67,7 +67,7 @@ def process_data(
         otherwise returns the binarizer
         passed in.
     """
-    X.columns = [col.replace(" ", "") for col in X.columns]
+    # X.columns = [col.replace(" ", "") for col in X.columns]
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)

@@ -29,9 +29,12 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
     params = {
-        "n_estimators": range(5, 30, 5),
-        "max_depth": range(5, 30, 5),
-        "learning_rate": np.linspace(0, 1, 11),
+        "n_estimators": range(5, 10, 5),
+        "max_depth": range(5, 10, 5),
+        "learning_rate": np.linspace(0, 1, 2),
+        # "n_estimators": range(5, 30, 5),
+        # "max_depth": range(5, 30, 5),
+        # "learning_rate": np.linspace(0, 1, 11),
     }
 
     n_cores = multiprocessing.cpu_count() - NUMBER_OF_CORES_TO_KEEP_FREE
@@ -147,26 +150,42 @@ https://arxiv.org/pdf/1810.03993.pdf
         file.write(file_content)
 
 
-def save_model(model, pth="model/model.pickle"):
+def save_model(model, lb, encoder, cat_features, pth="model/"):
     """Save model to pickle.
 
 
     Args:
         model (): Model to save.
+        lb (): Lb to save.
+        encoder (): Encoder to save.
+        cat_features (list): List of Categorical features to save.
         pth (str): Path of resulting pickle.
     """
-    with open(pth, "wb") as file:
+    with open(pth + "model.pickle", "wb") as file:
         pickle.dump(model, file)
+    with open(pth + "lb.pickle", "wb") as file:
+        pickle.dump(lb, file)
+    with open(pth + "encoder.pickle", "wb") as file:
+        pickle.dump(encoder, file)
+    with open(pth + "cat_features.pickle", "wb") as file:
+        pickle.dump(cat_features, file)
 
 
-def load_model(pth="model/model.pickle"):
+def load_model(pth="model/"):
     """Load model from pickle.
 
     Args:
         pth (str): Path of the pickle file.
     """
-    with open(pth, "rb") as file:
-        return pickle.load(file)
+    with open(pth + "model.pickle", "rb") as file:
+        model = pickle.load(file)
+    with open(pth + "lb.pickle", "rb") as file:
+        lb = pickle.load(file)
+    with open(pth + "encoder.pickle", "rb") as file:
+        encoder = pickle.load(file)
+    with open(pth + "cat_features.pickle", "rb") as file:
+        cat_features = pickle.load(file)
+    return model, lb, encoder, cat_features
 
 
 def preformance_over_slice(model, data, slice_feature: str, encoder, lb):

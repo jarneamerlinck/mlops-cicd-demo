@@ -41,18 +41,18 @@ The data was taken from the same sources as the trainings data but split off fro
 The metrics over all the slices is listed in the table below
 
    precision    recall     fbeta
-0   0.780454  0.625744  0.694588
+0   0.770375  0.651959  0.706238
 
 The slices war made on the column 'marital_status'
 
               slice_name precision    recall     fbeta
-0          Never-married      0.65  0.492424  0.560345
-1     Married-civ-spouse  0.783838  0.650885  0.711202
-2               Divorced  0.811881  0.423773  0.556876
-3  Married-spouse-absent  0.714286       0.4  0.512821
-4              Separated  0.911765  0.553571  0.688889
-5      Married-AF-spouse  0.777778  0.777778  0.777778
-6                Widowed  0.793103  0.359375  0.494624
+0          Never-married  0.839024  0.425743   0.56486
+1     Married-civ-spouse  0.762663  0.689404  0.724185
+2               Divorced  0.751295  0.408451  0.529197
+3  Married-spouse-absent  0.823529       0.5  0.622222
+4              Separated  0.892857  0.471698  0.617284
+5      Married-AF-spouse     0.875  0.777778  0.823529
+6                Widowed  0.903226  0.430769  0.583333
 
 
 

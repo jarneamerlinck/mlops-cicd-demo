@@ -1,21 +1,23 @@
 import os
-from typing import List
+from typing import List  # , Union
 
 import pandas as pd
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from ml_project_to_cloud.ml.data import process_data
+
 # from ml_project_to_cloud.ml.data import clean_data
-from ml_project_to_cloud.ml.model import load_model  # inference
+from ml_project_to_cloud.ml.model import inference, load_model
 
 # from sklearn.model_selection import train_test_split
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # Add code to load in the data.
-parent_dir = f"{current_dir}/../../"
-model_pth = f"{parent_dir}/model/model.pickle"
+parent_dir = f"{current_dir}/../.."
+model_pth = f"{parent_dir}/model/"
 
 
 class InputArray(BaseModel):
@@ -23,6 +25,7 @@ class InputArray(BaseModel):
     workclass: str
     fnlgt: int
     education: str
+    education_num: str
     marital_status: str
     occupation: str
     relationship: str
@@ -33,30 +36,38 @@ class InputArray(BaseModel):
     hours_per_week: int
     native_country: str
 
-    # Instantiate the app.
-
 
 app = FastAPI()
 
 
-# Define a GET on the specified endpoint.
 @app.get("/")
-async def say_hello():
-    return {"greeting": "Hello World!"}
+async def root_greeting():
+    return {"greeting": "Welcome to the ml api!"}
 
 
 @app.post("/")
-async def predict(df: List[dict]):
-    df = pd.DataFrame(df)
-    return {"Received DataFrame": df.to_dict()}
+async def predict(data: List[InputArray]):
+    data_dict = [item.dict() for item in data]
+    df = pd.DataFrame(data_dict)
+
+    model, lb, encoder, cat_features = load_model(model_pth)
+    X, _, _, _ = process_data(
+        df,
+        categorical_features=cat_features,
+        label=None,
+        training=False,
+        encoder=encoder,
+        lb=lb,
+    )
+
+    result = inference(model, X)
+
+    return result.tolist()
 
 
 def main():
-    model = load_model(model_pth)
-    print(model)
 
-    uvicorn.run(app, host="0.0.0.0", port=8080, reload=False)
-    # Declare the data object with its components and their type.
+    uvicorn.run(app, host="0.0.0.0", port=9080, reload=False)
 
 
 if __name__ == "__main__":

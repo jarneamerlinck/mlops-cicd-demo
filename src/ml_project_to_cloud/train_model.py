@@ -57,12 +57,12 @@ def train():
     )
 
     print(X_test.shape)
-    model_pth = f"{parent_dir}/model/model.pickle"
+    model_pth = f"{parent_dir}/model/"
     model_card_pth = f"{parent_dir}/model/model_card.md"
 
-    if os.path.isfile(model_pth):
+    if os.path.isfile(model_pth + "model.pickle"):
         print("Prev model available")
-        prev_model = model_lib.load_model(model_pth)
+        prev_model, _, _, _ = model_lib.load_model(model_pth)
         pred_prev_model = model_lib.inference(prev_model, X_test)
         precision_prev_model, _, _ = model_lib.compute_model_metrics(
             y_test, pred_prev_model
@@ -77,7 +77,7 @@ def train():
     if precision > precision_prev_model:
         print("Current model is better")
         print("Saving model")
-        model_lib.save_model(model, model_pth)
+        model_lib.save_model(model, lb, encoder, cat_features, model_pth)
         print(precision, recall, fbeta)
     else:
         print("prev model was better, so no saving current model")
