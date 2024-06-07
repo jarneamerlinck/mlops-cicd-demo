@@ -34,10 +34,8 @@ ml-project-to-cloud
 ===================
 
 
-    Add a short description here!
+    Project for the udacity course. Link is: https://github.com/jarneamerlinck/mlops-cicd-demo
 
-
-A longer description of your project goes here...
 
 
 .. _pyscaffold-notes:

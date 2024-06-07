@@ -18,7 +18,7 @@ def test_predict_single(data):
     data_json = parsed_data.to_dict(orient="records")
 
     r = client.post(
-        "/",
+        "/predict",
         json=data_json,
     )
     assert r.status_code == 200
@@ -32,7 +32,7 @@ def test_predict_multiple(data):
     data_json = parsed_data.to_dict(orient="records")
 
     r = client.post(
-        "/",
+        "/predict",
         json=data_json,
     )
     result = r.json()["data"]

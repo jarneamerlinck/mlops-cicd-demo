@@ -90,6 +90,7 @@ def train():
         encoder=encoder,
         lb=lb,
     )
+    slice_results.to_csv(f"{model_pth}/slice_output.txt")
     metric_types = ["precision", "recall", "fbeta"]
 
     original_metrics = pd.DataFrame(

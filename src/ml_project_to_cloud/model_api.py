@@ -48,7 +48,7 @@ async def root_greeting():
     return {"greeting": "Welcome to the ml api!"}
 
 
-@app.post("/", response_model=ModelResponse)
+@app.post("/predict", response_model=ModelResponse)
 async def predict(data: List[ModelInput]):
     data_dict = [item.dict() for item in data]
     df = pd.DataFrame(data_dict)
