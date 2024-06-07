@@ -28,17 +28,17 @@
     :target: https://pyscaffold.org/
 
 |
-.. |Api docs| image:: docs/_static/example.png
+.. |Api_docs| image:: docs/_static/example.png
   :alt: example
 
 .. |continuous_deloyment| image:: docs/_static/continuous_deloyment.png
   :alt: continuous_deloyment
 
 .. |live_get| image:: docs/_static/live_get.png
-  :alt:live_get
+  :alt: live_get
 
 .. |live_post| image:: docs/_static/live_post.png
-  :alt:live_post
+  :alt: live_post
 
 
 
@@ -54,13 +54,15 @@ Required images
 
 All images under `docs/_static`
 
-|Api docs|
+
+|Api_docs|
 
 |continuous_deloyment|
 
 |live_get|
 
 |live_post|
+
 
 .. _pyscaffold-notes:
 
