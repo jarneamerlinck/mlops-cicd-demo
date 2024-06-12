@@ -8,7 +8,21 @@ https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
 
-This mo
+This model predicts if the income of a person is higher then 50K. The used inputs are:
+	age
+	workclass
+	fnlgt
+	education
+	education_num
+	marital_status
+	occupation
+	relationship
+	race
+	sex
+	capital_gain
+	capital_loss
+	hours_per_week
+	native_country
 
 ## Intended Use
 
@@ -34,25 +48,23 @@ The trainings data was taken from the census page (see [Ethical Considerations](
 
 ## Evaluation Data
 
-The data was taken from the same sources as the trainings data but split off from the trainigsdata before use.
+The data was taken from the same sources as the trainings data but split off from the trainigsdata before use. The train test split ratio is 0.2. So the test data is 20% of the full dataset.
 
 ## Metrics
 
 The metrics over all the slices is listed in the table below
 
    precision    recall     fbeta
-0   0.784287  0.638705  0.704049
+0   0.811964  0.665549  0.731502
 
-The slices war made on the column 'marital_status'
+The slices were made on the column 'race'
 
-              slice_name precision    recall     fbeta
-0          Never-married  0.865385  0.462725  0.603015
-1     Married-civ-spouse  0.770864  0.673844  0.719097
-2               Divorced  0.819767  0.389503   0.52809
-3  Married-spouse-absent  0.727273  0.307692  0.432432
-4              Separated     0.875  0.538462  0.666667
-5      Married-AF-spouse       0.5  0.571429  0.533333
-6                Widowed  0.958333  0.323944  0.484211
+           slice_name precision    recall     fbeta
+0               White  0.805544  0.673337  0.733531
+1               Black       0.8  0.556634  0.656489
+2  Asian-Pac-Islander  0.808989  0.651584  0.721805
+3  Amer-Indian-Eskimo  0.722222  0.464286  0.565217
+4               Other  0.727273  0.470588  0.571429
 
 
 
@@ -62,4 +74,4 @@ This data can be found on [sources](https://archive.ics.uci.edu/ml/datasets/cens
 
 ## Caveats and Recommendations
 
-There are not recommendations at this moment
+This model is best if the new data is somewhat similar to the data it's trained on. So passing data from a Country not included in the trainings data will decrease the model performance.

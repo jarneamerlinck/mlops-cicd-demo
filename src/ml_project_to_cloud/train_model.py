@@ -34,7 +34,7 @@ def train():
         "sex",
         "native_country",
     ]
-    slice_feature = cat_features[2]
+    slice_feature = cat_features[5]
 
     X_train, y_train, encoder, lb = process_data(
         train, categorical_features=cat_features, label="salary", training=True
@@ -86,7 +86,7 @@ def train():
     slice_results = model_lib.preformance_over_slice(
         model,
         data,
-        slice_feature=cat_features[2],
+        slice_feature=slice_feature,
         encoder=encoder,
         lb=lb,
     )
@@ -97,11 +97,17 @@ def train():
         data=[[precision, recall, fbeta]], columns=metric_types
     )
 
-    model_details = "This mo"
+    model_details = (
+        "This model predicts if the income of a person"
+        + " is higher then 50K. The used inputs are: \n\t"
+        + "\n\t".join(train.columns.to_list()[:-1])
+    )
     model_use = "This model was created to predict the income of a person."
     eval_data = (
         "The data was taken from the same sources as the trainings data"
         + " but split off from the trainigsdata before use."
+        + " The train test split ratio is 0.2."
+        + " So the test data is 20% of the full dataset."
     )
     train_data = (
         "The trainings data was taken from the census page"
@@ -110,15 +116,22 @@ def train():
     )
     metrics_desc = (
         "The metrics over all the slices is listed in the table below\n\n"
-        + f"{original_metrics}\n\nThe slices war made on the column"
+        + f"{original_metrics}\n\nThe slices were made on the column"
         + f" '{slice_feature}'\n\n{slice_results}\n\n"
     )
     ethical_desc = (
         "This data can be found on"
         + " [sources](https://archive.ics.uci.edu/ml/datasets/census+income)"
-        + " and the only bias should be the bias in the data"
+        + " and the only bias should be the bias in the data."
+        + " **The data is based on the year 1994**. So the salary does"
+        + " not include the inflation, there might be a bias towards race."
     )
-    recommendations = "There are not recommendations at this moment"
+    recommendations = (
+        "This model is best if the new data is somewhat"
+        + " similar to the data it's trained on. So passing data"
+        + " from a Country not included in the trainings data will"
+        + " decrease the model performance."
+    )
 
     model_lib.save_model_card(
         model,
