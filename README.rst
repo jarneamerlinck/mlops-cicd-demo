@@ -40,6 +40,12 @@
 .. |live_post| image:: docs/_static/live_post.png
   :alt: live_post
 
+.. |continuous_integration| image:: docs/_static/continuous_integration.png
+  :alt: continuous_integration
+
+.. |continuous_deloyment_pipeline| image:: docs/_static/continuous_deloyment_pipeline.png
+  :alt: continuous_deloyment_pipeline
+
 
 
 ===================
@@ -57,11 +63,16 @@ All images under `docs/_static`
 
 |Api_docs|
 
+|continuous_integration|
+
 |continuous_deloyment|
+
+|continuous_deloyment_pipeline|
 
 |live_get|
 
 |live_post|
+
 
 
 .. _pyscaffold-notes:
