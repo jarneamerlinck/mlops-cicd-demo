@@ -38,7 +38,7 @@ def test_get_root():
     assert r.json() == {"greeting": "Welcome to the ml api!"}
 
 
-def test_predict_single(data):
+def test_predict_single_lower(data):
     parsed_data = parse_data_for_predict(data).iloc[[0]]
     data_json = parsed_data.to_dict(orient="records")
 
@@ -50,6 +50,22 @@ def test_predict_single(data):
     result = r.json()["data"]
     assert type(result) is list
     assert len(result) == parsed_data.shape[0]
+    assert result == [0]
+
+
+def test_predict_single_higher(data):
+    parsed_data = parse_data_for_predict(data).iloc[[8]]
+    data_json = parsed_data.to_dict(orient="records")
+
+    r = s.post(
+        f"{url}/predict",
+        json=data_json,
+    )
+    assert r.status_code == 200
+    result = r.json()["data"]
+    assert type(result) is list
+    assert len(result) == parsed_data.shape[0]
+    assert result == [1]
 
 
 def test_predict_multiple(data):
