@@ -55,22 +55,22 @@ The data was taken from the same sources as the trainings data but split off fro
 The metrics over all the slices is listed in the table below
 
    precision    recall     fbeta
-0   0.811964  0.665549  0.731502
+0   0.819204  0.685587  0.746463
 
 The slices were made on the column 'race'
 
            slice_name precision    recall     fbeta
-0               White  0.805544  0.673337  0.733531
-1               Black       0.8  0.556634  0.656489
-2  Asian-Pac-Islander  0.808989  0.651584  0.721805
-3  Amer-Indian-Eskimo  0.722222  0.464286  0.565217
-4               Other  0.727273  0.470588  0.571429
+0               White  0.809138  0.684469  0.741601
+1               Black  0.813559      0.64  0.716418
+2  Asian-Pac-Islander     0.805  0.715556  0.757647
+3  Amer-Indian-Eskimo  0.888889       0.5      0.64
+4               Other  0.777778  0.636364       0.7
 
 
 
 ## Ethical Considerations
 
-This data can be found on [sources](https://archive.ics.uci.edu/ml/datasets/census+income) and the only bias should be the bias in the data
+This data can be found on [sources](https://archive.ics.uci.edu/ml/datasets/census+income) and the only bias should be the bias in the data. **The data is based on the year 1994**. So the salary does not include the inflation, there might be a bias towards race. Amer-Indian-Eskimo, and Other races have lower percision then White, Black and Asian-Pac-Islander. This could be because there are a data imbalance.
 
 ## Caveats and Recommendations
 

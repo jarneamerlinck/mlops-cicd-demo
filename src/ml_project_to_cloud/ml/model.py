@@ -29,12 +29,9 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
     params = {
-        "n_estimators": range(5, 10, 5),
-        "max_depth": range(5, 10, 5),
-        "learning_rate": np.linspace(0, 1, 2),
-        # "n_estimators": range(5, 30, 5),
-        # "max_depth": range(5, 30, 5),
-        # "learning_rate": np.linspace(0, 1, 11),
+        "n_estimators": range(5, 30, 5),
+        "max_depth": range(5, 30, 5),
+        "learning_rate": np.linspace(0, 1, 11),
     }
 
     n_cores = multiprocessing.cpu_count() - NUMBER_OF_CORES_TO_KEEP_FREE

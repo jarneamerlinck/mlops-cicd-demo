@@ -125,6 +125,9 @@ def train():
         + " and the only bias should be the bias in the data."
         + " **The data is based on the year 1994**. So the salary does"
         + " not include the inflation, there might be a bias towards race."
+        + " Amer-Indian-Eskimo, and Other races have lower percision then"
+        + " White, Black and Asian-Pac-Islander."
+        + " This could be because there are a data imbalance."
     )
     recommendations = (
         "This model is best if the new data is somewhat"
